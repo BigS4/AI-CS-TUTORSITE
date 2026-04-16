@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI CS Tutor</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar">
+    <div class="nav-brand">🤖 AI CS Tutor</div>
+    <ul class="nav-links">
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#chat">Ask AI</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Learn Computer Science<br /><span class="highlight">with AI by your side</span></h1>
+      <p class="hero-subtitle">
+        Get instant explanations on algorithms, data structures, programming concepts, and more.
+        Your personal CS tutor, available 24/7.
+      </p>
+      <a href="#chat" class="cta-btn">Start Learning →</a>
+    </div>
+  </section>
+
+  <!-- TOPICS SECTION -->
+  <section id="topics" class="topics-section">
+    <h2>What can you learn?</h2>
+    <div class="topics-grid">
+      <div class="topic-card">
+        <span class="topic-icon">📊</span>
+        <h3>Data Structures</h3>
+        <p>Arrays, linked lists, trees, graphs, hash maps, and more.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">⚙️</span>
+        <h3>Algorithms</h3>
+        <p>Sorting, searching, dynamic programming, and graph algorithms.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">💻</span>
+        <h3>Programming</h3>
+        <p>Python, JavaScript, Java — understand code at a deep level.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🧠</span>
+        <h3>Computer Science Theory</h3>
+        <p>Big O notation, recursion, logic, and computational thinking.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🗄️</span>
+        <h3>Databases</h3>
+        <p>SQL, NoSQL, schema design, and query optimization.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🌐</span>
+        <h3>Web Development</h3>
+        <p>HTML, CSS, JavaScript, APIs, and how the web works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT SECTION -->
+  <section id="chat" class="chat-section">
+    <h2>Ask the AI Tutor</h2>
+    <p class="chat-subtitle">Type any CS question below and get a clear explanation.</p>
+
+    <div class="chat-container">
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">
+          👋 Hi! I'm your AI CS Tutor. Ask me anything about computer science — from "What is a variable?" to "Explain Big O notation"!
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="e.g. What is a binary search tree?"
+          autocomplete="off"
+        />
+        <button id="sendBtn" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="about-section">
+    <h2>About AI CS Tutor</h2>
+    <p>
+      AI CS Tutor is built to make computer science accessible for everyone — whether you're a complete
+      beginner or brushing up on advanced topics. Our AI explains concepts visually and simply,
+      so you actually <em>understand</em>, not just memorize.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 AI CS Tutor · Built with ❤️ for learners everywhere</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
