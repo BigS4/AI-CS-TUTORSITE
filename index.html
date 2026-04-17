@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI CS Tutor</title>
+  <title>AI CS Tutor — רשימה מקושרת</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -12,70 +12,111 @@
   <nav class="navbar">
     <div class="nav-brand">🤖 AI CS Tutor</div>
     <ul class="nav-links">
-      <li><a href="#topics">Topics</a></li>
-      <li><a href="#chat">Ask AI</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#sandbox">סנדבוקס</a></li>
+      <li><a href="#topics">נושאים</a></li>
+      <li><a href="#chat">שאל AI</a></li>
+      <li><a href="#about">אודות</a></li>
     </ul>
   </nav>
 
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-content">
-      <h1>Learn Computer Science<br /><span class="highlight">with AI by your side</span></h1>
+      <h1>למדו מדעי המחשב<br /><span class="highlight">עם AI לצידכם</span></h1>
       <p class="hero-subtitle">
-        Get instant explanations on algorithms, data structures, programming concepts, and more.
-        Your personal CS tutor, available 24/7.
+        הסברים מיידיים על אלגוריתמים, מבני נתונים, עקרונות תכנות ועוד.
+        המורה הפרטי שלכם ל-CS, זמין 24/7.
       </p>
-      <a href="#chat" class="cta-btn">Start Learning →</a>
+      <a href="#sandbox" class="cta-btn">התחל ללמוד ←</a>
+    </div>
+  </section>
+
+  <!-- VISUAL SANDBOX SECTION -->
+  <section id="sandbox" class="sandbox-section">
+    <h2>סנדבוקס: רשימה מקושרת</h2>
+    <p class="sandbox-subtitle">בנו רשימה מקושרת חזותית — אתחלו HEAD, הוסיפו צמתים, גררו וראו כיצד המצביעים מתחברים.</p>
+
+    <div class="sandbox-wrapper">
+      <div class="sandbox-toolbar">
+        <button id="btn-init-head" class="sandbox-btn sandbox-btn-primary">אתחל HEAD</button>
+        <input
+          type="text"
+          id="node-value-input"
+          class="sandbox-input"
+          placeholder="ערך הצומת (למשל 42)"
+          autocomplete="off"
+        />
+        <button id="btn-add-node" class="sandbox-btn sandbox-btn-accent">הוסף צומת</button>
+        <button id="btn-clear-board" class="sandbox-btn sandbox-btn-ghost">נקה לוח</button>
+      </div>
+
+      <div id="sandbox-board" class="sandbox-board">
+        <svg id="sandbox-arrows" class="sandbox-arrows" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5"
+                    markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#00d4ff" />
+            </marker>
+          </defs>
+        </svg>
+        <div id="sandbox-nodes" class="sandbox-nodes"></div>
+        <div id="sandbox-empty" class="sandbox-empty">לחצו "אתחל HEAD" כדי להתחיל</div>
+      </div>
+
+      <div class="sandbox-legend">
+        <span><span class="legend-swatch legend-head"></span>HEAD</span>
+        <span><span class="legend-swatch legend-node"></span>צומת</span>
+        <span><span class="legend-swatch legend-null"></span>NULL</span>
+      </div>
     </div>
   </section>
 
   <!-- TOPICS SECTION -->
   <section id="topics" class="topics-section">
-    <h2>What can you learn?</h2>
+    <h2>מה אפשר ללמוד?</h2>
     <div class="topics-grid">
       <div class="topic-card">
         <span class="topic-icon">📊</span>
-        <h3>Data Structures</h3>
-        <p>Arrays, linked lists, trees, graphs, hash maps, and more.</p>
+        <h3>מבני נתונים</h3>
+        <p>מערכים, רשימות מקושרות, עצים, גרפים, מפות-גיבוב ועוד.</p>
       </div>
       <div class="topic-card">
         <span class="topic-icon">⚙️</span>
-        <h3>Algorithms</h3>
-        <p>Sorting, searching, dynamic programming, and graph algorithms.</p>
+        <h3>אלגוריתמים</h3>
+        <p>מיון, חיפוש, תכנון דינאמי ואלגוריתמי גרפים.</p>
       </div>
       <div class="topic-card">
         <span class="topic-icon">💻</span>
-        <h3>Programming</h3>
-        <p>Python, JavaScript, Java — understand code at a deep level.</p>
+        <h3>תכנות</h3>
+        <p>Python, JavaScript, Java — הבינו קוד לעומק.</p>
       </div>
       <div class="topic-card">
         <span class="topic-icon">🧠</span>
-        <h3>Computer Science Theory</h3>
-        <p>Big O notation, recursion, logic, and computational thinking.</p>
+        <h3>תאוריה של CS</h3>
+        <p>סימון Big O, רקורסיה, לוגיקה וחשיבה חישובית.</p>
       </div>
       <div class="topic-card">
         <span class="topic-icon">🗄️</span>
-        <h3>Databases</h3>
-        <p>SQL, NoSQL, schema design, and query optimization.</p>
+        <h3>בסיסי נתונים</h3>
+        <p>SQL, NoSQL, תכנון סכימות ואופטימיזציית שאילתות.</p>
       </div>
       <div class="topic-card">
         <span class="topic-icon">🌐</span>
-        <h3>Web Development</h3>
-        <p>HTML, CSS, JavaScript, APIs, and how the web works.</p>
+        <h3>פיתוח Web</h3>
+        <p>HTML, CSS, JavaScript, APIs, וכיצד האינטרנט עובד.</p>
       </div>
     </div>
   </section>
 
   <!-- CHAT SECTION -->
   <section id="chat" class="chat-section">
-    <h2>Ask the AI Tutor</h2>
-    <p class="chat-subtitle">Type any CS question below and get a clear explanation.</p>
+    <h2>שאלו את המורה ה-AI</h2>
+    <p class="chat-subtitle">הקלידו שאלה ב-CS וקבלו הסבר ברור.</p>
 
     <div class="chat-container">
       <div class="chat-messages" id="chatMessages">
         <div class="message bot-message">
-          👋 Hi! I'm your AI CS Tutor. Ask me anything about computer science — from "What is a variable?" to "Explain Big O notation"!
+          👋 היי! אני המורה ה-AI שלכם ל-CS. שאלו אותי כל שאלה — מ-"מהו משתנה?" ועד "הסבר Big O".
         </div>
       </div>
 
@@ -83,27 +124,26 @@
         <input
           type="text"
           id="userInput"
-          placeholder="e.g. What is a binary search tree?"
+          placeholder="למשל: מה זו רשימה מקושרת?"
           autocomplete="off"
         />
-        <button id="sendBtn" onclick="sendMessage()">Send</button>
+        <button id="sendBtn" onclick="sendMessage()">שלח</button>
       </div>
     </div>
   </section>
 
   <!-- ABOUT SECTION -->
   <section id="about" class="about-section">
-    <h2>About AI CS Tutor</h2>
+    <h2>אודות AI CS Tutor</h2>
     <p>
-      AI CS Tutor is built to make computer science accessible for everyone — whether you're a complete
-      beginner or brushing up on advanced topics. Our AI explains concepts visually and simply,
-      so you actually <em>understand</em>, not just memorize.
+      AI CS Tutor נבנה כדי להנגיש מדעי המחשב לכולם — בין אם אתם מתחילים לגמרי או מרעננים נושאים מתקדמים.
+      המורה שלנו מסביר מושגים באופן חזותי ופשוט, כך שתבינו <em>באמת</em>, לא תשננו.
     </p>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2026 AI CS Tutor · Built with ❤️ for learners everywhere</p>
+    <p>© 2026 AI CS Tutor · נבנה באהבה ❤️ ללומדים בכל מקום</p>
   </footer>
 
   <script src="js/main.js"></script>

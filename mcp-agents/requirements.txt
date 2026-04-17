@@ -1,0 +1,5 @@
+# openai package is used as the HTTP client for Ollama's OpenAI-compatible API
+# No API key or cloud account needed — Ollama runs fully locally
+mcp>=1.0.0
+openai>=1.30.0
+pydantic>=2.0.0

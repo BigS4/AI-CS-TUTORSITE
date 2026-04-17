@@ -1,0 +1,101 @@
+{
+  "next_id": 9,
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Set up Hebrew RTL base layout",
+      "description": "Add dir='rtl' to the HTML body, convert all text content to Hebrew, ensure navbar, hero, and section headers render correctly RTL. Use a Hebrew system font stack.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E5-Localization",
+      "notes": "",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-16T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Build the Visual Sandbox section",
+      "description": "Add a new #sandbox section to index.html with: a canvas/div area, 'Initialize HEAD' button, node input field + 'Add Node' button, and 'Clear Board' button. Style with the existing dark theme.",
+      "status": "done",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E1-Initialization",
+      "notes": "Done. Added <section id='sandbox'> with toolbar (Init HEAD / value input / Add Node / Clear Board — all Hebrew labels), #sandbox-board (400px min-height, dashed border, gradient bg), SVG overlay for arrows, and legend. Styled in css/style.css matching existing dark theme. Also switched <html> to dir='rtl' lang='he' and translated all section text to Hebrew.",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-17T08:27:32.327347+00:00"
+    },
+    {
+      "id": 3,
+      "title": "Implement HEAD pointer + NULL block rendering",
+      "description": "When 'Initialize HEAD' is clicked: render a HEAD block on the canvas connected by an arrow to a NULL block. Acceptance criteria: HEAD appears, arrow points to NULL, board starts clean.",
+      "status": "done",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E1-Initialization",
+      "notes": "Done. initHead() in js/main.js resets state then pushes {kind:'head'} and {kind:'null'} into items[]. HEAD rendered as gradient pill block, NULL as muted block. Arrow auto-drawn between them via SVG overlay.",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-17T08:27:32.350817+00:00"
+    },
+    {
+      "id": 4,
+      "title": "Implement Create Node feature",
+      "description": "When user enters a value and clicks Add Node: create a node block (Data value + Next slot), insert it at the end of the list, update the previous node's arrow to point to the new node, and update the new node's arrow to point to NULL.",
+      "status": "done",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E2-Node Management",
+      "notes": "Done. addNode(value) inserts a {kind:'node',value} item just before the NULL sentinel. Empty input shows a red-flash + focus. Enter key also submits. If user hits Add Node before Init, initHead() is called implicitly. Two-cell node rendering (data | next).",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-17T08:27:32.861194+00:00"
+    },
+    {
+      "id": 5,
+      "title": "Dynamic SVG arrow rendering",
+      "description": "Implement arrow drawing using SVG overlay on the canvas. Arrows must: connect nodes automatically, update within 200ms of any list change, always terminate at NULL. Consider using SVG <line> or <path> elements positioned absolutely.",
+      "status": "done",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E3-Visualization",
+      "notes": "Done. SVG overlay (#sandbox-arrows) inside sandbox-board. drawArrows() iterates items[] pairwise and draws an <line> between block centers, offset to the block edges, with marker-end arrowhead. Called on every state change via requestAnimationFrame, on window resize, and during drag (pointermove) for real-time updates — well under 200ms target.",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-17T08:27:35.880427+00:00"
+    },
+    {
+      "id": 6,
+      "title": "Implement node deletion with auto-relinking",
+      "description": "Add a delete (×) button to each node. When clicked: remove the node, relink the previous node's Next pointer to point to the deleted node's Next. Update all arrows. List integrity must be maintained.",
+      "status": "done",
+      "assignee": "frontend",
+      "priority": "high",
+      "epic": "E2-Node Management",
+      "notes": "Done. Each .ll-node has an × delete button (shown on hover). deleteNode(id) splices the node out of items[]; because arrows are rendered pairwise from items[], the previous item now arrows directly to what was the deleted node's next → auto-relink. HEAD/NULL are protected (only kind==='node' is deletable).",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-17T08:27:38.260679+00:00"
+    },
+    {
+      "id": 7,
+      "title": "Implement drag & drop for nodes",
+      "description": "Allow students to drag individual nodes to new positions on the canvas. Arrows must follow the dragged node in real time. Use HTML5 drag-and-drop API or pointer events. Arrows should re-render on every drag move.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "high",
+      "epic": "E4-Interactivity",
+      "notes": "",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-16T00:00:00Z"
+    },
+    {
+      "id": 8,
+      "title": "QA review: full MVP test plan",
+      "description": "Write a complete manual test plan covering: HEAD initialization, node creation, arrow rendering, node deletion, drag & drop, clear board, Hebrew RTL layout, and cross-browser compatibility (Chrome, Firefox, Safari).",
+      "status": "todo",
+      "assignee": "qa",
+      "priority": "high",
+      "epic": "E3-Visualization",
+      "notes": "",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-16T00:00:00Z"
+    }
+  ]
+}
