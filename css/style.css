@@ -476,55 +476,79 @@ em { color: var(--text-1); font-style: italic; }
   cursor: grab;
 }
 
-/* Node block — two-cell (data | next) layout, unclipped */
+/* Node block — retro memory-chip style */
 .ll-node {
   display: flex;
-  background: var(--bg-2);
-  border: 1px solid var(--border-strong);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  align-items: stretch;
+  min-width: 100px;
+  background: #060d1a;
+  border: 1px solid var(--accent-flow);
+  border-radius: 5px;
+  box-shadow:
+    0 0 0 1px rgba(0, 212, 255, 0.08),
+    0 0 14px rgba(0, 212, 255, 0.22),
+    0 4px 18px rgba(0, 0, 0, 0.6);
   cursor: grab;
-  /* QA C1 fix: no overflow:hidden on the wrapper — cells carry border-radius */
 }
-.ll-node:hover, .ll-node:focus-within { border-color: var(--accent-flow); }
+
+/* "NODE" chip label floats above — retro IC package feel */
+.ll-node::before {
+  content: 'NODE';
+  position: absolute;
+  top: -9px; left: 10px;
+  font-size: 0.5rem;
+  font-family: var(--font-mono);
+  color: var(--accent-flow);
+  letter-spacing: 2.5px;
+  background: var(--bg-0);
+  padding: 0 5px;
+  opacity: 0.7;
+}
+
+.ll-node:hover, .ll-node:focus-within {
+  box-shadow:
+    0 0 0 1px rgba(0, 212, 255, 0.18),
+    0 0 22px rgba(0, 212, 255, 0.38),
+    0 4px 18px rgba(0, 0, 0, 0.6);
+}
 .ll-node:focus-within .delete-btn,
 .ll-node:hover .delete-btn { display: flex; }
+
 .ll-node .cell {
-  padding: 0.6rem 0.9rem;
-  min-width: 54px;
+  padding: 0.6rem 0.7rem;
+  min-width: 0;
   text-align: center;
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 700;
 }
 .ll-node .cell-data {
-  background: linear-gradient(135deg, #1d2144, #141a33);
-  color: var(--text-1);
-  font-size: 0.98rem;
-  border-inline-end: 1px solid var(--border-strong);
+  flex: 1;
+  color: var(--accent-flow);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  display: flex; align-items: center; justify-content: center;
+  border-inline-end: 1px solid rgba(0, 212, 255, 0.18);
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-/* In a 2-cell flex with LTR-locked block (the board uses absolute positioning
-   so we treat cells independently of page direction): cell-data is the LEFT
-   cell, cell-next is the RIGHT cell. Round accordingly. */
 .ll-node .cell-next {
-  background: var(--bg-1);
-  color: var(--accent-flow);
-  font-size: 0.72rem;
-  letter-spacing: 0.5px;
+  flex: 0 0 28px;
+  min-width: 0;
+  background: rgba(0, 212, 255, 0.04);
   display: flex; align-items: center; justify-content: center;
-  min-width: 44px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  opacity: 0.55;
 }
 .ll-node .cell-next::before {
-  content: "→";
-  font-size: 1rem;
+  content: '→';
+  font-size: 0.9rem;
   color: var(--accent-flow);
+  font-weight: 400;
   line-height: 1;
 }
 
-/* Delete button — now unclipped */
-.ll-node { position: relative; }
+/* Delete button — positioned relative to the .ll-block (position:absolute) parent */
 .ll-node .delete-btn {
   position: absolute;
   top: -9px;
@@ -558,7 +582,7 @@ em { color: var(--text-1); font-style: italic; }
 .sandbox-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
 .legend-swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
 .legend-head { background: var(--bg-2); border: 1px solid var(--accent-state); }
-.legend-node { background: linear-gradient(135deg, #1d2144, #141a33); border: 1px solid var(--border-strong); }
+.legend-node { background: #060d1a; border: 1px solid var(--accent-flow); box-shadow: 0 0 6px rgba(0,212,255,0.3); }
 .legend-null { background: var(--bg-1); border: 1px dashed var(--text-3); }
 
 /* ---------- LESSON PANE ---------- */

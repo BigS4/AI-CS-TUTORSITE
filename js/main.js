@@ -294,7 +294,7 @@
     const empty    = $('#sandbox-empty');
 
     // Layout constants
-    const ROW_Y   = 70;
+    const ROW_Y   = 90;
     const START_X = 30;
     const GAP     = 60;
     const BLOCK_W = 120;
@@ -408,16 +408,14 @@
     }
 
     function defaultPositionFor(index) {
-      // QA L5 fix: getBoundingClientRect, fallback to a sensible default
-      const rect = board.getBoundingClientRect();
-      const boardW = Math.max(rect.width - 40, 320);
-      const perRow = Math.max(1, Math.floor(boardW / (BLOCK_W + GAP)));
-      const row = Math.floor(index / perRow);
-      const col = index % perRow;
-      return {
-        x: START_X + col * (BLOCK_W + GAP),
-        y: ROW_Y + row * 110,
-      };
+      const CHAIN_GAP = 20;
+      const kindW = { head: 80, node: 120, null: 72 };
+      let x = START_X, y = ROW_Y;
+      for (let i = 0; i < index; i++) {
+        const kind = items[i] ? items[i].kind : 'node';
+        x += (kindW[kind] || BLOCK_W) + CHAIN_GAP;
+      }
+      return { x, y };
     }
 
     function relayout() {
