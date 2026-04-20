@@ -1,5 +1,5 @@
 {
-  "next_id": 9,
+  "next_id": 21,
   "tasks": [
     {
       "id": 1,
@@ -71,7 +71,7 @@
       "epic": "E2-Node Management",
       "notes": "Done. Each .ll-node has an × delete button (shown on hover). deleteNode(id) splices the node out of items[]; because arrows are rendered pairwise from items[], the previous item now arrows directly to what was the deleted node's next → auto-relink. HEAD/NULL are protected (only kind==='node' is deletable).",
       "created_at": "2026-04-16T00:00:00Z",
-      "updated_at": "2026-04-17T08:27:38.260679+00:00"
+      "updated_at": "2026-04-17T08:27:38.260819+00:00"
     },
     {
       "id": 7,
@@ -89,13 +89,157 @@
       "id": 8,
       "title": "QA review: full MVP test plan",
       "description": "Write a complete manual test plan covering: HEAD initialization, node creation, arrow rendering, node deletion, drag & drop, clear board, Hebrew RTL layout, and cross-browser compatibility (Chrome, Firefox, Safari).",
+      "status": "done",
+      "assignee": "qa",
+      "priority": "high",
+      "epic": "E3-Visualization",
+      "notes": "Done. Thorough QA analysis completed 2026-04-20. Report saved to QA_REPORT.md. Found 1 Critical, 3 High, 5 Medium, 5 Low severity issues. Critical: delete button clipped by overflow:hidden on .ll-node. High: board clips content at 400px, Hebrew chat broken (English-only keywords), resize not debounced. See QA_REPORT.md for full details and fix recommendations.",
+      "created_at": "2026-04-16T00:00:00Z",
+      "updated_at": "2026-04-20T06:20:00Z"
+    },
+    {
+      "id": 9,
+      "title": "Apply Retro CMD Visual Theme to Sandbox",
+      "description": "Transform all sandbox blocks to a retro terminal / CMD aesthetic as specified in PROJECT_CONTEXT.md §'Visual Design: Retro CMD Aesthetic'. HEAD renders as 'HEAD>', nodes as '[ value | --> ]', NULL as '<NULL>'. Font: Courier New / Consolas monospace. Colors: #001100 board bg, #00ff41 text (matrix green). Solid 1px terminal-style borders, minimal border-radius (2px). Optional CRT scanline overlay. Keep all drag, delete, arrow, and relinking functionality 100% intact.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E6-Design",
+      "notes": "",
+      "created_at": "2026-04-20T06:20:00Z",
+      "updated_at": "2026-04-20T06:20:00Z"
+    },
+    {
+      "id": 10,
+      "title": "Complete Hebrew RTL Polish",
+      "description": "1) Add Hebrew keyword aliases to the responses object in main.js so Hebrew queries match (e.g. 'רשימה מקושרת' → linked list, 'רקורסיה' → recursion, 'מערך' → array, 'סיבוכיות' → big o, 'חיפוש בינארי' → binary search). 2) Change 'Thinking...' typing indicator to Hebrew: '...חושב'. 3) Add aria-label='מחק צומת' to the delete button in createBlockEl(). 4) Discuss with Meirav (teacher) whether sandbox arrow direction should flip to RTL (HEAD on right, flow right-to-left). 5) Fix any remaining RTL visual issues found in QA.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "high",
+      "epic": "E5-Localization",
+      "notes": "",
+      "created_at": "2026-04-20T06:20:00Z",
+      "updated_at": "2026-04-20T06:20:00Z"
+    },
+    {
+      "id": 11,
+      "title": "Add C# Code Mirror Panel",
+      "description": "Add a collapsible panel beside (or below) the sandbox board that shows the equivalent C# code for every student action. Examples: When HEAD is initialized → 'Node HEAD = null;'. When node is added → 'Node newNode = new Node(value); newNode.next = HEAD; HEAD = newNode;'. When node is deleted → relink code with prev.next = target.next. Panel should syntax-highlight like a terminal/IDE. This bridges the visual sandbox directly to Bagrut exam C# code, which is the primary learning goal.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "high",
+      "epic": "E2-Node Management",
+      "notes": "",
+      "created_at": "2026-04-20T06:20:00Z",
+      "updated_at": "2026-04-20T06:20:00Z"
+    },
+    {
+      "id": 12,
+      "title": "Performance & Polish Pass",
+      "description": "Fix all High/Critical bugs from QA_REPORT.md: 1) [C1] Remove overflow:hidden from .ll-node, apply border-radius selectively to .cell-data and .cell-next to fix clipped delete button. 2) [H1] Remove overflow:hidden from .sandbox-board and dynamically grow board height from relayout() so nodes below 400px are not clipped. 3) [H3] Debounce window resize handler with 120ms setTimeout. 4) Add smooth CSS transition (opacity + translateY) when nodes are added and deleted for polish. 5) Add :focus-within show of delete button for keyboard/touch accessibility.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "medium",
+      "epic": "E3-Visualization",
+      "notes": "",
+      "created_at": "2026-04-20T06:20:00Z",
+      "updated_at": "2026-04-20T06:20:00Z"
+    },
+    {
+      "id": 13,
+      "title": "Pilot Session Preparation",
+      "description": "Prepare the product for 3–5 real student pilot sessions before the Bagrut exam window. Deliverables: 1) A guided tutorial overlay mode with 3 progressive hints: step 1 'לחצו אתחל HEAD', step 2 'הקלידו ערך ולחצו הוסף צומת', step 3 'גררו צומת ומחקו אחד'. The overlay dismisses after each step is completed. 2) A teacher quick-start card (1 page PDF) explaining the tool to Meirav and other teachers. 3) A feedback form (Google Form or similar) to collect student impressions after each session. 4) Define success metrics to measure the ≥30% pointer-error reduction goal.",
+      "status": "todo",
+      "assignee": "pm",
+      "priority": "medium",
+      "epic": "E5-Localization",
+      "notes": "",
+      "created_at": "2026-04-20T06:20:00Z",
+      "updated_at": "2026-04-20T06:20:00Z"
+    },
+    {
+      "id": 14,
+      "title": "[Week2-A] Site shell skeleton + design tokens (IDE layout)",
+      "description": "Replace marketing-style top-navbar layout with an IDE-style CSS Grid: topbar / right-anchored sidebar / main pane / code-mirror right column / bottom console / status bar. Add full color + typography tokens per WEEK2_VISION.md §2.6/§2.7 (terminal-green #00ff9c for state, cyan #00d4ff for flow, JetBrains Mono for chrome). Re-home all Week-1 sections as panes that show/hide based on sidebar selection. No JS errors.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E6-Design",
+      "notes": "",
+      "created_at": "2026-04-20T07:08:47.635140+00:00",
+      "updated_at": "2026-04-20T07:08:47.635154+00:00"
+    },
+    {
+      "id": 15,
+      "title": "[Week2-B] Sandbox CSS rebuild + QA visual fixes (C1 H1 L4)",
+      "description": "Drop overflow:hidden from .ll-node and apply selective border-radius on .cell-data/.cell-next to un-clip the delete button (QA C1). Make .sandbox-board overflow:visible with dynamic min-height grown from relayout() (QA H1). Show delete button on :focus-within for keyboard/touch (QA L4). Apply mono font on HEAD/NULL labels and add a 3% CRT scanline overlay on #sandbox-board.",
+      "status": "todo",
+      "assignee": "frontend",
+      "priority": "critical",
+      "epic": "E6-Design",
+      "notes": "",
+      "created_at": "2026-04-20T07:08:57.053857+00:00",
+      "updated_at": "2026-04-20T07:08:57.053867+00:00"
+    },
+    {
+      "id": 16,
+      "title": "[Week2-C] State engine + Code Mirror + Console panel",
+      "description": "Funnel every sandbox mutation through dispatch(action). Each action emits (1) C# line(s), (2) Hebrew pseudocode, (3) console log entry, (4) status-bar snapshot. renderCodeMirror() paints highlighted spans (manual class-based, no library) per WEEK2_VISION.md §4.2. Console panel scrolls and supports נקה. 'Thinking...' becomes '...חושב' (QA M4). Replace silent initHead-on-add with a toast hint (QA M3).",
+      "status": "todo",
+      "assignee": "engineer",
+      "priority": "critical",
+      "epic": "E2-Node Management",
+      "notes": "",
+      "created_at": "2026-04-20T07:09:03.740153+00:00",
+      "updated_at": "2026-04-20T07:09:03.740164+00:00"
+    },
+    {
+      "id": 17,
+      "title": "[Week2-D] Keyboard shortcuts + Ctrl+K palette + tutorial overlay",
+      "description": "Global keymap: h=initHead, n=focus input, d=delete focused node, c=clear, ?=cheat sheet, Esc=close overlay. Ctrl+K / ⌘K opens a Hebrew command palette with English subtitles. 3-step Hebrew first-visit tutorial overlay per WEEK2_VISION.md §5 (in-memory flag for artifact preview).",
+      "status": "todo",
+      "assignee": "engineer",
+      "priority": "high",
+      "epic": "E4-Interactivity",
+      "notes": "",
+      "created_at": "2026-04-20T07:09:19.820157+00:00",
+      "updated_at": "2026-04-20T07:09:19.820169+00:00"
+    },
+    {
+      "id": 18,
+      "title": "[Week2-E] Hebrew chat aliases + hardened reply rendering + remaining QA",
+      "description": "Add hebrewKeyMap (QA H2). setReply() helper hardens innerHTML against future user-input leakage (QA M2). Debounce window resize 120ms (QA H3). Replace inline onclick on sendBtn with addEventListener (QA L2). Add aria-label to delete button (QA L3). Drop redundant el.style.position='absolute' (QA L1). Wrap initial layout in requestAnimationFrame (QA L5).",
+      "status": "todo",
+      "assignee": "engineer",
+      "priority": "high",
+      "epic": "E5-Localization",
+      "notes": "",
+      "created_at": "2026-04-20T07:09:25.464937+00:00",
+      "updated_at": "2026-04-20T07:09:25.464952+00:00"
+    },
+    {
+      "id": 19,
+      "title": "[Week2-F] QA verification pass on the new build",
+      "description": "Walk every Critical/High/Medium issue from QA_REPORT.md and mark Fixed/Deferred/Won't-fix with line refs. Test on 1920x1080 (projector) and 1280x720 (laptop). Confirm Hebrew chat resolves at least 6 keywords. Confirm keyboard-only flow can init head, add 3 nodes, delete middle, clear. Confirm Code Mirror output matches §4.2 mapping. File any new issues. Save as QA_REPORT_V2.md.",
       "status": "todo",
       "assignee": "qa",
       "priority": "high",
       "epic": "E3-Visualization",
       "notes": "",
-      "created_at": "2026-04-16T00:00:00Z",
-      "updated_at": "2026-04-16T00:00:00Z"
+      "created_at": "2026-04-20T07:09:32.095394+00:00",
+      "updated_at": "2026-04-20T07:09:32.095403+00:00"
+    },
+    {
+      "id": 20,
+      "title": "Re-run QA verification after Week-2 redesign",
+      "description": "Review issues in QA REPORT after Week 2 design polish, close or defer based on new code analysis, and produce QA_REPORT_V2.md.",
+      "status": "todo",
+      "assignee": "qa",
+      "priority": "medium",
+      "epic": "E3-Visualization",
+      "notes": "",
+      "created_at": "2026-04-20T07:17:40.158564+00:00",
+      "updated_at": "2026-04-20T07:17:40.158575+00:00"
     }
   ]
 }

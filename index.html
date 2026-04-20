@@ -3,148 +3,304 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI CS Tutor — רשימה מקושרת</title>
+  <title>AI CS Tutor · LinkedList.cs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- NAVIGATION BAR -->
-  <nav class="navbar">
-    <div class="nav-brand">🤖 AI CS Tutor</div>
-    <ul class="nav-links">
-      <li><a href="#sandbox">סנדבוקס</a></li>
-      <li><a href="#topics">נושאים</a></li>
-      <li><a href="#chat">שאל AI</a></li>
-      <li><a href="#about">אודות</a></li>
-    </ul>
-  </nav>
+  <!-- =========================================
+       APP SHELL — IDE LAYOUT (CSS Grid)
+       Top:     topbar
+       Middle:  [ codemirror | main-pane | sidebar ]   (RTL: sidebar on right edge)
+       Bottom:  console panel + status bar
+       ========================================= -->
+  <div class="app-shell" id="appShell">
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>למדו מדעי המחשב<br /><span class="highlight">עם AI לצידכם</span></h1>
-      <p class="hero-subtitle">
-        הסברים מיידיים על אלגוריתמים, מבני נתונים, עקרונות תכנות ועוד.
-        המורה הפרטי שלכם ל-CS, זמין 24/7.
-      </p>
-      <a href="#sandbox" class="cta-btn">התחל ללמוד ←</a>
+    <!-- ============ TOPBAR ============ -->
+    <header class="topbar" role="banner">
+      <div class="topbar-section topbar-brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">AI CS Tutor</span>
+        <span class="brand-sep">·</span>
+        <span class="brand-file">LinkedList.cs</span>
+      </div>
+
+      <nav class="topbar-section topbar-breadcrumb" aria-label="מיקום נוכחי">
+        <span class="crumb">שיעור 01</span>
+        <span class="crumb-sep">›</span>
+        <span class="crumb">רשימה מקושרת</span>
+        <span class="crumb-sep">›</span>
+        <span class="crumb crumb-current" id="crumbSurface">סנדבוקס</span>
+      </nav>
+
+      <div class="topbar-section topbar-progress">
+        <div class="progress-track" title="התקדמות בשיעור">
+          <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">20%</span>
+      </div>
+
+      <div class="topbar-section topbar-actions">
+        <button class="cmdk-hint" id="btnCmdK" type="button" title="פתח סרגל פקודות">
+          <kbd>Ctrl</kbd><kbd>K</kbd><span>חיפוש פקודה</span>
+        </button>
+        <span class="topbar-clock" id="topbarClock" aria-label="שעה">00:00</span>
+      </div>
+    </header>
+
+    <!-- ============ BODY: sidebar + main + codemirror ============ -->
+    <div class="body-grid">
+
+      <!-- ======== CODE MIRROR (LEFT column in DOM, visual right in LTR; in RTL it appears on visual LEFT) ======== -->
+      <aside class="codemirror" id="codeMirror" aria-label="פאנל קוד">
+        <header class="cm-header">
+          <div class="cm-tabs" role="tablist">
+            <button class="cm-tab is-active" data-view="csharp" role="tab" aria-selected="true">C#</button>
+            <button class="cm-tab" data-view="pseudo" role="tab" aria-selected="false">פסאודו-קוד</button>
+          </div>
+          <button class="cm-collapse" id="cmCollapse" type="button" title="כווץ פאנל">⇥</button>
+        </header>
+        <div class="cm-filebar">
+          <span class="cm-filename">📄 LinkedList.cs</span>
+          <span class="cm-readonly" title="פאנל לקריאה בלבד">קריאה בלבד</span>
+        </div>
+        <pre class="cm-code" id="cmCode" tabindex="0"><code><span class="syn-comment">// הקוד מתעדכן בזמן אמת עם כל פעולה בסנדבוקס.</span>
+<span class="syn-comment">// לחצו "אתחל HEAD" כדי להתחיל.</span></code></pre>
+      </aside>
+
+      <!-- ======== MAIN PANE (swaps based on sidebar selection) ======== -->
+      <main class="main-pane" id="mainPane">
+
+        <!-- --- LESSON PANE --- -->
+        <section class="pane pane-lesson" data-pane="lesson" hidden>
+          <header class="pane-header">
+            <h2><span class="pane-tag">LESSON</span> רשימה מקושרת — היסודות</h2>
+          </header>
+          <article class="lesson-body">
+            <p>רשימה מקושרת (<code>LinkedList</code>) היא מבנה נתונים דינמי שבו כל צומת (<code>Node</code>) מחזיק ערך ומצביע לצומת הבא.</p>
+            <h3>למה זה מעניין?</h3>
+            <p>בניגוד למערך בעל גודל קבוע, ברשימה מקושרת אפשר להוסיף ולמחוק צמתים בקלות, כי המצביעים הם שמגדירים את הסדר — לא המיקום בזיכרון.</p>
+            <h3>המושגים</h3>
+            <ul>
+              <li><code>HEAD</code> — המצביע לצומת הראשון ברשימה (או <code>null</code> אם ריקה).</li>
+              <li><code>Node</code> — חוליה: ערך + מצביע <code>next</code>.</li>
+              <li><code>NULL</code> — סוף הרשימה. המצביע <code>next</code> של הצומת האחרון שווה ל-<code>null</code>.</li>
+            </ul>
+            <p class="lesson-cta">עברו לסנדבוקס כדי לבנות רשימה בעצמכם ולראות את הקוד C# מתהווה בזמן אמת ←</p>
+          </article>
+        </section>
+
+        <!-- --- SANDBOX PANE (default) --- -->
+        <section class="pane pane-sandbox is-active" data-pane="sandbox">
+          <header class="pane-header">
+            <h2><span class="pane-tag">SANDBOX</span> רשימה מקושרת · לוח חזותי</h2>
+            <p class="pane-subtitle">בנו רשימה מקושרת — אתחלו HEAD, הוסיפו צמתים, גררו ומחקו. הקוד C# מתעדכן מימין לכל פעולה.</p>
+          </header>
+
+          <div class="sandbox-toolbar">
+            <button id="btn-init-head" class="sandbox-btn sandbox-btn-primary" type="button">
+              <span class="kbd-inline">H</span>
+              אתחל HEAD
+            </button>
+            <input
+              type="text"
+              id="node-value-input"
+              class="sandbox-input"
+              placeholder="ערך הצומת (למשל 42)"
+              autocomplete="off"
+              aria-label="ערך הצומת החדש"
+            />
+            <button id="btn-add-node" class="sandbox-btn sandbox-btn-accent" type="button">
+              <span class="kbd-inline">N</span>
+              הוסף צומת
+            </button>
+            <button id="btn-clear-board" class="sandbox-btn sandbox-btn-ghost" type="button">
+              <span class="kbd-inline">C</span>
+              נקה לוח
+            </button>
+          </div>
+
+          <div id="sandbox-board" class="sandbox-board" role="region" aria-label="לוח ויזואלי של רשימה מקושרת">
+            <svg id="sandbox-arrows" class="sandbox-arrows" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5"
+                        markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 Z" fill="#00d4ff" />
+                </marker>
+              </defs>
+            </svg>
+            <div id="sandbox-nodes" class="sandbox-nodes"></div>
+            <div id="sandbox-empty" class="sandbox-empty">
+              <span class="empty-prompt">$&nbsp;</span>לחצו "אתחל HEAD" או הקישו <kbd>H</kbd> כדי להתחיל<span class="empty-cursor">_</span>
+            </div>
+            <div class="board-scanlines" aria-hidden="true"></div>
+          </div>
+
+          <div class="sandbox-legend">
+            <span><span class="legend-swatch legend-head"></span>HEAD</span>
+            <span><span class="legend-swatch legend-node"></span>צומת</span>
+            <span><span class="legend-swatch legend-null"></span>NULL</span>
+          </div>
+        </section>
+
+        <!-- --- AI TUTOR PANE --- -->
+        <section class="pane pane-chat" data-pane="chat" hidden>
+          <header class="pane-header">
+            <h2><span class="pane-tag">AI</span> שאלו את המורה ה-AI</h2>
+            <p class="pane-subtitle">הקלידו שאלה בעברית או באנגלית וקבלו הסבר ברור.</p>
+          </header>
+
+          <div class="chat-container">
+            <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+              <div class="message bot-message">
+                <span class="msg-prompt">AI&gt;</span>
+                שלום! אני המורה ה-AI שלכם ל-CS. שאלו אותי כל שאלה — <em>"מהי רשימה מקושרת?"</em>, <em>"הסבר רקורסיה"</em>, או <em>"מה זה Big O?"</em>.
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <span class="input-prompt">&gt;</span>
+              <input
+                type="text"
+                id="userInput"
+                placeholder="למשל: מה זו רשימה מקושרת?"
+                autocomplete="off"
+                aria-label="שאלה ל-AI"
+              />
+              <button id="sendBtn" type="button">שלח</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- --- CONSOLE (FULL) PANE --- -->
+        <section class="pane pane-console-full" data-pane="console-full" hidden>
+          <header class="pane-header">
+            <h2><span class="pane-tag">CONSOLE</span> יומן פעולות מלא</h2>
+            <p class="pane-subtitle">כל פעולה בסנדבוקס נרשמת כקריאה לפונקציה — כאילו כתבתם קוד.</p>
+          </header>
+          <div class="console-full-mirror" id="consoleFullMirror"></div>
+        </section>
+
+      </main>
+
+      <!-- ======== SIDEBAR (right edge, RTL primary nav) ======== -->
+      <nav class="sidebar" id="sidebar" aria-label="ניווט ראשי">
+        <button class="side-btn is-active" data-target="sandbox" type="button" title="סנדבוקס (S)" aria-label="סנדבוקס">
+          <span class="side-icon">🧪</span>
+          <span class="side-label">סנדבוקס</span>
+        </button>
+        <button class="side-btn" data-target="lesson" type="button" title="שיעור (L)" aria-label="שיעור">
+          <span class="side-icon">📚</span>
+          <span class="side-label">שיעור</span>
+        </button>
+        <button class="side-btn" data-target="chat" type="button" title="AI Tutor (A)" aria-label="AI Tutor">
+          <span class="side-icon">🤖</span>
+          <span class="side-label">AI Tutor</span>
+        </button>
+        <button class="side-btn" data-target="console-full" type="button" title="קונסולה (O)" aria-label="קונסולה">
+          <span class="side-icon">💻</span>
+          <span class="side-label">קונסולה</span>
+        </button>
+        <div class="side-spacer"></div>
+        <button class="side-btn side-btn-help" id="btnHelp" type="button" title="קיצורי מקלדת (?)" aria-label="קיצורי מקלדת">
+          <span class="side-icon">?</span>
+          <span class="side-label">עזרה</span>
+        </button>
+      </nav>
     </div>
-  </section>
 
-  <!-- VISUAL SANDBOX SECTION -->
-  <section id="sandbox" class="sandbox-section">
-    <h2>סנדבוקס: רשימה מקושרת</h2>
-    <p class="sandbox-subtitle">בנו רשימה מקושרת חזותית — אתחלו HEAD, הוסיפו צמתים, גררו וראו כיצד המצביעים מתחברים.</p>
-
-    <div class="sandbox-wrapper">
-      <div class="sandbox-toolbar">
-        <button id="btn-init-head" class="sandbox-btn sandbox-btn-primary">אתחל HEAD</button>
-        <input
-          type="text"
-          id="node-value-input"
-          class="sandbox-input"
-          placeholder="ערך הצומת (למשל 42)"
-          autocomplete="off"
-        />
-        <button id="btn-add-node" class="sandbox-btn sandbox-btn-accent">הוסף צומת</button>
-        <button id="btn-clear-board" class="sandbox-btn sandbox-btn-ghost">נקה לוח</button>
-      </div>
-
-      <div id="sandbox-board" class="sandbox-board">
-        <svg id="sandbox-arrows" class="sandbox-arrows" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5"
-                    markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 Z" fill="#00d4ff" />
-            </marker>
-          </defs>
-        </svg>
-        <div id="sandbox-nodes" class="sandbox-nodes"></div>
-        <div id="sandbox-empty" class="sandbox-empty">לחצו "אתחל HEAD" כדי להתחיל</div>
-      </div>
-
-      <div class="sandbox-legend">
-        <span><span class="legend-swatch legend-head"></span>HEAD</span>
-        <span><span class="legend-swatch legend-node"></span>צומת</span>
-        <span><span class="legend-swatch legend-null"></span>NULL</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOPICS SECTION -->
-  <section id="topics" class="topics-section">
-    <h2>מה אפשר ללמוד?</h2>
-    <div class="topics-grid">
-      <div class="topic-card">
-        <span class="topic-icon">📊</span>
-        <h3>מבני נתונים</h3>
-        <p>מערכים, רשימות מקושרות, עצים, גרפים, מפות-גיבוב ועוד.</p>
-      </div>
-      <div class="topic-card">
-        <span class="topic-icon">⚙️</span>
-        <h3>אלגוריתמים</h3>
-        <p>מיון, חיפוש, תכנון דינאמי ואלגוריתמי גרפים.</p>
-      </div>
-      <div class="topic-card">
-        <span class="topic-icon">💻</span>
-        <h3>תכנות</h3>
-        <p>Python, JavaScript, Java — הבינו קוד לעומק.</p>
-      </div>
-      <div class="topic-card">
-        <span class="topic-icon">🧠</span>
-        <h3>תאוריה של CS</h3>
-        <p>סימון Big O, רקורסיה, לוגיקה וחשיבה חישובית.</p>
-      </div>
-      <div class="topic-card">
-        <span class="topic-icon">🗄️</span>
-        <h3>בסיסי נתונים</h3>
-        <p>SQL, NoSQL, תכנון סכימות ואופטימיזציית שאילתות.</p>
-      </div>
-      <div class="topic-card">
-        <span class="topic-icon">🌐</span>
-        <h3>פיתוח Web</h3>
-        <p>HTML, CSS, JavaScript, APIs, וכיצד האינטרנט עובד.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CHAT SECTION -->
-  <section id="chat" class="chat-section">
-    <h2>שאלו את המורה ה-AI</h2>
-    <p class="chat-subtitle">הקלידו שאלה ב-CS וקבלו הסבר ברור.</p>
-
-    <div class="chat-container">
-      <div class="chat-messages" id="chatMessages">
-        <div class="message bot-message">
-          👋 היי! אני המורה ה-AI שלכם ל-CS. שאלו אותי כל שאלה — מ-"מהו משתנה?" ועד "הסבר Big O".
+    <!-- ============ CONSOLE (bottom pinned, collapsible) ============ -->
+    <section class="console-dock" id="consoleDock" aria-label="קונסולה">
+      <header class="dock-header">
+        <span class="dock-title"><span class="dock-led"></span> CONSOLE</span>
+        <span class="dock-hint">יומן חי של פעולות</span>
+        <div class="dock-actions">
+          <button id="btnClearConsole" class="dock-btn" type="button" title="נקה קונסולה">נקה</button>
+          <button id="btnToggleConsole" class="dock-btn" type="button" title="כווץ/הרחב" aria-expanded="true">▼</button>
+        </div>
+      </header>
+      <div class="console-body" id="consoleBody">
+        <div class="console-line console-line-system">
+          <span class="c-prompt">&gt;</span>
+          <span class="c-text">CS Tutor · ready. הקישו <kbd>?</kbd> לצפייה בקיצורים.</span>
         </div>
       </div>
+    </section>
 
-      <div class="chat-input-area">
-        <input
-          type="text"
-          id="userInput"
-          placeholder="למשל: מה זו רשימה מקושרת?"
-          autocomplete="off"
-        />
-        <button id="sendBtn" onclick="sendMessage()">שלח</button>
-      </div>
+    <!-- ============ STATUSBAR ============ -->
+    <footer class="statusbar" role="contentinfo" aria-label="סטטוס">
+      <span class="status-cluster">
+        <span class="status-led" id="statusLed"></span>
+        <span class="status-mode" id="statusMode">READY</span>
+      </span>
+      <span class="status-sep">·</span>
+      <span class="status-snapshot" id="statusSnapshot">רשימה ריקה</span>
+      <span class="status-sep">·</span>
+      <span class="status-count" id="statusCount">0 צמתים</span>
+      <span class="status-sep">·</span>
+      <span class="status-errors"><span id="statusErrors">0</span> שגיאות</span>
+      <span class="status-spacer"></span>
+      <span class="status-meta">he-IL</span>
+      <span class="status-sep">·</span>
+      <span class="status-meta">UTF-8</span>
+      <span class="status-sep">·</span>
+      <span class="status-meta">LF</span>
+    </footer>
+
+  </div><!-- /.app-shell -->
+
+  <!-- =========================================
+       COMMAND PALETTE (⌘K / Ctrl+K)
+       ========================================= -->
+  <div class="palette-backdrop" id="paletteBackdrop" hidden>
+    <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="סרגל פקודות">
+      <header class="palette-header">
+        <span class="palette-prompt">&gt;</span>
+        <input id="paletteInput" class="palette-input" type="text" placeholder="חפשו פקודה… (Esc ליציאה)" autocomplete="off" />
+      </header>
+      <ul id="paletteList" class="palette-list" role="listbox"></ul>
+      <footer class="palette-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> לניווט</span>
+        <span><kbd>Enter</kbd> לבחירה</span>
+        <span><kbd>Esc</kbd> לסגירה</span>
+      </footer>
     </div>
-  </section>
+  </div>
 
-  <!-- ABOUT SECTION -->
-  <section id="about" class="about-section">
-    <h2>אודות AI CS Tutor</h2>
-    <p>
-      AI CS Tutor נבנה כדי להנגיש מדעי המחשב לכולם — בין אם אתם מתחילים לגמרי או מרעננים נושאים מתקדמים.
-      המורה שלנו מסביר מושגים באופן חזותי ופשוט, כך שתבינו <em>באמת</em>, לא תשננו.
-    </p>
-  </section>
+  <!-- =========================================
+       HELP / SHORTCUTS OVERLAY
+       ========================================= -->
+  <div class="help-backdrop" id="helpBackdrop" hidden>
+    <div class="help-panel" role="dialog" aria-modal="true" aria-label="קיצורי מקלדת">
+      <header class="help-header">
+        <h3>קיצורי מקלדת</h3>
+        <button id="btnCloseHelp" class="help-close" type="button" aria-label="סגור">×</button>
+      </header>
+      <dl class="help-list">
+        <dt><kbd>H</kbd></dt><dd>אתחל HEAD</dd>
+        <dt><kbd>N</kbd></dt><dd>מקד על שדה ערך (הוסף צומת)</dd>
+        <dt><kbd>D</kbd></dt><dd>מחק את הצומת הממוקד</dd>
+        <dt><kbd>C</kbd></dt><dd>נקה את הלוח</dd>
+        <dt><kbd>S</kbd> / <kbd>L</kbd> / <kbd>A</kbd> / <kbd>O</kbd></dt><dd>מעבר בין סנדבוקס / שיעור / AI / קונסולה</dd>
+        <dt><kbd>Ctrl</kbd>+<kbd>K</kbd></dt><dd>סרגל פקודות</dd>
+        <dt><kbd>?</kbd></dt><dd>חלון זה</dd>
+        <dt><kbd>Esc</kbd></dt><dd>סגור חלון פעיל</dd>
+      </dl>
+    </div>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2026 AI CS Tutor · נבנה באהבה ❤️ ללומדים בכל מקום</p>
-  </footer>
+  <!-- =========================================
+       TUTORIAL OVERLAY — 3 hints, first visit only
+       ========================================= -->
+  <div class="tutorial-layer" id="tutorialLayer" hidden></div>
+
+  <!-- =========================================
+       TOAST CONTAINER
+       ========================================= -->
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
 
   <script src="js/main.js"></script>
 </body>
